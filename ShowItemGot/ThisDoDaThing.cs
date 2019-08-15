@@ -24,18 +24,17 @@ namespace ShowItemGot
 
         IEnumerator Testing()
         {
-            yield return new WaitWhile(() => HeroController.instance == null);
-            yield return new WaitForSeconds(10f); //For testing purposes
+            yield return new WaitWhile(() => HeroController.instance == null); //For testing purposes ONLY
+            yield return new WaitForSeconds(10f); //For testing purposes ONLY
             /*
             If you want to stop the player from moving.
             HeroController.instance.RelinquishControl();
             HeroController.instance.StopAnimationControl();*/
             var fsm = ShowItemGot.preloadedGO["item"].LocateMyFSM("Shiny Control");
-            yield return null;
             fsm.GetAction<SetFsmInt>("Normal Msg", 1).setValue.Value = CHARM_NUM;
-            yield return null;
-            fsm.enabled = true;
             fsm.SetState("Normal Msg");
+            fsm.enabled = true;
+            PlayerData.instance.charmsOwned++;
             PlayerData.instance.gotCharm_1 = true;
             /*
             Gives Control back.
